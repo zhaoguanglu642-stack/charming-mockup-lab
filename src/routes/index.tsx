@@ -28,10 +28,10 @@ type Panel = "store" | "messages" | "order" | "events" | "booking" | "storage" |
 type NavKey = "home" | "order" | "events" | "profile";
 
 const services = [
-  { key: "order" as const, label: "扫码点单", note: "桌边即点", icon: ScanLine, featured: true },
-  { key: "events" as const, label: "赛事中心", note: "今晚 3 场", icon: Trophy },
-  { key: "booking" as const, label: "预订桌台", note: "余位 6 桌", icon: CalendarDays },
-  { key: "storage" as const, label: "我的存酒", note: "2 瓶在存", icon: GlassWater },
+  { to: "/order" as const, label: "扫码点单", note: "桌边即点", icon: ScanLine, featured: true },
+  { to: "/events" as const, label: "赛事中心", note: "今晚 3 场", icon: Trophy },
+  { to: "/booking" as const, label: "预订桌台", note: "余位 6 桌", icon: CalendarDays },
+  { to: "/storage" as const, label: "我的存酒", note: "2 瓶在存", icon: GlassWater },
 ];
 
 function Index() {
@@ -77,8 +77,8 @@ function Index() {
 
         <section className="relative -mt-1 px-4">
           <div className="grid grid-cols-4 overflow-hidden rounded-md border border-line bg-panel shadow-panel">
-            {services.map(({ key, label, note, icon: Icon, featured }) => (
-              <Link key={label} to={`/${key}` as "/order" | "/events" | "/booking" | "/storage"} className={`flex min-w-0 flex-col items-center border-r border-line px-1 py-4 last:border-r-0 active:brightness-125 ${featured ? "bg-primary text-primary-foreground" : "bg-transparent text-foreground"}`}>
+            {services.map(({ to, label, note, icon: Icon, featured }) => (
+              <Link key={label} to={to} className={`flex min-w-0 flex-col items-center border-r border-line px-1 py-4 last:border-r-0 active:brightness-125 ${featured ? "bg-primary text-primary-foreground" : "bg-transparent text-foreground"}`}>
                 <Icon className="mb-2 size-5" strokeWidth={1.8} /><span className="text-xs font-semibold">{label}</span><span className={`mt-1 text-[10px] ${featured ? "text-primary-foreground/70" : "text-muted-foreground"}`}>{note}</span>
               </Link>
             ))}
