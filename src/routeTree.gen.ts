@@ -11,9 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BookingRouteImport } from './routes/booking'
+import { Route as CouponsRouteImport } from './routes/coupons'
 import { Route as EventsRouteImport } from './routes/events'
+import { Route as MemberRouteImport } from './routes/member'
 import { Route as OrderRouteImport } from './routes/order'
 import { Route as PresaleRouteImport } from './routes/presale'
+import { Route as RechargeRouteImport } from './routes/recharge'
+import { Route as StorageRouteImport } from './routes/storage'
 import { Route as OrderCheckoutRouteImport } from './routes/order.checkout'
 
 const IndexRoute = IndexRouteImport.update({
@@ -26,9 +30,19 @@ const BookingRoute = BookingRouteImport.update({
   path: '/booking',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CouponsRoute = CouponsRouteImport.update({
+  id: '/coupons',
+  path: '/coupons',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EventsRoute = EventsRouteImport.update({
   id: '/events',
   path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MemberRoute = MemberRouteImport.update({
+  id: '/member',
+  path: '/member',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OrderRoute = OrderRouteImport.update({
@@ -41,6 +55,16 @@ const PresaleRoute = PresaleRouteImport.update({
   path: '/presale',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RechargeRoute = RechargeRouteImport.update({
+  id: '/recharge',
+  path: '/recharge',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StorageRoute = StorageRouteImport.update({
+  id: '/storage',
+  path: '/storage',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OrderCheckoutRoute = OrderCheckoutRouteImport.update({
   id: '/checkout',
   path: '/checkout',
@@ -50,50 +74,89 @@ const OrderCheckoutRoute = OrderCheckoutRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/booking': typeof BookingRoute
+  '/coupons': typeof CouponsRoute
   '/events': typeof EventsRoute
+  '/member': typeof MemberRoute
   '/order': typeof OrderRouteWithChildren
   '/presale': typeof PresaleRoute
+  '/recharge': typeof RechargeRoute
+  '/storage': typeof StorageRoute
   '/order/checkout': typeof OrderCheckoutRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/booking': typeof BookingRoute
+  '/coupons': typeof CouponsRoute
   '/events': typeof EventsRoute
+  '/member': typeof MemberRoute
   '/order': typeof OrderRouteWithChildren
   '/presale': typeof PresaleRoute
+  '/recharge': typeof RechargeRoute
+  '/storage': typeof StorageRoute
   '/order/checkout': typeof OrderCheckoutRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/booking': typeof BookingRoute
+  '/coupons': typeof CouponsRoute
   '/events': typeof EventsRoute
+  '/member': typeof MemberRoute
   '/order': typeof OrderRouteWithChildren
   '/presale': typeof PresaleRoute
+  '/recharge': typeof RechargeRoute
+  '/storage': typeof StorageRoute
   '/order/checkout': typeof OrderCheckoutRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/booking' | '/events' | '/order' | '/presale' | '/order/checkout'
+    | '/'
+    | '/booking'
+    | '/coupons'
+    | '/events'
+    | '/member'
+    | '/order'
+    | '/presale'
+    | '/recharge'
+    | '/storage'
+    | '/order/checkout'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/booking' | '/events' | '/order' | '/presale' | '/order/checkout'
+  to:
+    | '/'
+    | '/booking'
+    | '/coupons'
+    | '/events'
+    | '/member'
+    | '/order'
+    | '/presale'
+    | '/recharge'
+    | '/storage'
+    | '/order/checkout'
   id:
     | '__root__'
     | '/'
     | '/booking'
+    | '/coupons'
     | '/events'
+    | '/member'
     | '/order'
     | '/presale'
+    | '/recharge'
+    | '/storage'
     | '/order/checkout'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BookingRoute: typeof BookingRoute
+  CouponsRoute: typeof CouponsRoute
   EventsRoute: typeof EventsRoute
+  MemberRoute: typeof MemberRoute
   OrderRoute: typeof OrderRouteWithChildren
   PresaleRoute: typeof PresaleRoute
+  RechargeRoute: typeof RechargeRoute
+  StorageRoute: typeof StorageRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -112,11 +175,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/coupons': {
+      id: '/coupons'
+      path: '/coupons'
+      fullPath: '/coupons'
+      preLoaderRoute: typeof CouponsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/events': {
       id: '/events'
       path: '/events'
       fullPath: '/events'
       preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/member': {
+      id: '/member'
+      path: '/member'
+      fullPath: '/member'
+      preLoaderRoute: typeof MemberRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/order': {
@@ -131,6 +208,20 @@ declare module '@tanstack/react-router' {
       path: '/presale'
       fullPath: '/presale'
       preLoaderRoute: typeof PresaleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/recharge': {
+      id: '/recharge'
+      path: '/recharge'
+      fullPath: '/recharge'
+      preLoaderRoute: typeof RechargeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/storage': {
+      id: '/storage'
+      path: '/storage'
+      fullPath: '/storage'
+      preLoaderRoute: typeof StorageRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/order/checkout': {
@@ -156,9 +247,13 @@ const OrderRouteWithChildren = OrderRoute._addFileChildren(OrderRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BookingRoute: BookingRoute,
+  CouponsRoute: CouponsRoute,
   EventsRoute: EventsRoute,
+  MemberRoute: MemberRoute,
   OrderRoute: OrderRouteWithChildren,
   PresaleRoute: PresaleRoute,
+  RechargeRoute: RechargeRoute,
+  StorageRoute: StorageRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
