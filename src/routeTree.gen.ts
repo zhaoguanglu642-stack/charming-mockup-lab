@@ -18,6 +18,7 @@ import { Route as OrderRouteImport } from './routes/order'
 import { Route as PresaleRouteImport } from './routes/presale'
 import { Route as RechargeRouteImport } from './routes/recharge'
 import { Route as StorageRouteImport } from './routes/storage'
+import { Route as OrderIndexRouteImport } from './routes/order.index'
 import { Route as OrderCheckoutRouteImport } from './routes/order.checkout'
 
 const IndexRoute = IndexRouteImport.update({
@@ -65,6 +66,11 @@ const StorageRoute = StorageRouteImport.update({
   path: '/storage',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OrderIndexRoute = OrderIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => OrderRoute,
+} as any)
 const OrderCheckoutRoute = OrderCheckoutRouteImport.update({
   id: '/checkout',
   path: '/checkout',
@@ -82,6 +88,7 @@ export interface FileRoutesByFullPath {
   '/recharge': typeof RechargeRoute
   '/storage': typeof StorageRoute
   '/order/checkout': typeof OrderCheckoutRoute
+  '/order/': typeof OrderIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -89,11 +96,11 @@ export interface FileRoutesByTo {
   '/coupons': typeof CouponsRoute
   '/events': typeof EventsRoute
   '/member': typeof MemberRoute
-  '/order': typeof OrderRouteWithChildren
   '/presale': typeof PresaleRoute
   '/recharge': typeof RechargeRoute
   '/storage': typeof StorageRoute
   '/order/checkout': typeof OrderCheckoutRoute
+  '/order': typeof OrderIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -107,6 +114,7 @@ export interface FileRoutesById {
   '/recharge': typeof RechargeRoute
   '/storage': typeof StorageRoute
   '/order/checkout': typeof OrderCheckoutRoute
+  '/order/': typeof OrderIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -121,6 +129,7 @@ export interface FileRouteTypes {
     | '/recharge'
     | '/storage'
     | '/order/checkout'
+    | '/order/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -128,11 +137,11 @@ export interface FileRouteTypes {
     | '/coupons'
     | '/events'
     | '/member'
-    | '/order'
     | '/presale'
     | '/recharge'
     | '/storage'
     | '/order/checkout'
+    | '/order'
   id:
     | '__root__'
     | '/'
@@ -145,6 +154,7 @@ export interface FileRouteTypes {
     | '/recharge'
     | '/storage'
     | '/order/checkout'
+    | '/order/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -224,6 +234,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StorageRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/order/': {
+      id: '/order/'
+      path: '/'
+      fullPath: '/order/'
+      preLoaderRoute: typeof OrderIndexRouteImport
+      parentRoute: typeof OrderRoute
+    }
     '/order/checkout': {
       id: '/order/checkout'
       path: '/checkout'
@@ -236,10 +253,12 @@ declare module '@tanstack/react-router' {
 
 interface OrderRouteChildren {
   OrderCheckoutRoute: typeof OrderCheckoutRoute
+  OrderIndexRoute: typeof OrderIndexRoute
 }
 
 const OrderRouteChildren: OrderRouteChildren = {
   OrderCheckoutRoute: OrderCheckoutRoute,
+  OrderIndexRoute: OrderIndexRoute,
 }
 
 const OrderRouteWithChildren = OrderRoute._addFileChildren(OrderRouteChildren)
