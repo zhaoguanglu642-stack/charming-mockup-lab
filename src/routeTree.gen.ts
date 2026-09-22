@@ -10,33 +10,90 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BookingRouteImport } from './routes/booking'
+import { Route as EventsRouteImport } from './routes/events'
+import { Route as OrderRouteImport } from './routes/order'
+import { Route as PresaleRouteImport } from './routes/presale'
+import { Route as OrderCheckoutRouteImport } from './routes/order.checkout'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BookingRoute = BookingRouteImport.update({
+  id: '/booking',
+  path: '/booking',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrderRoute = OrderRouteImport.update({
+  id: '/order',
+  path: '/order',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PresaleRoute = PresaleRouteImport.update({
+  id: '/presale',
+  path: '/presale',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrderCheckoutRoute = OrderCheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
+  getParentRoute: () => OrderRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/booking': typeof BookingRoute
+  '/events': typeof EventsRoute
+  '/order': typeof OrderRouteWithChildren
+  '/presale': typeof PresaleRoute
+  '/order/checkout': typeof OrderCheckoutRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/booking': typeof BookingRoute
+  '/events': typeof EventsRoute
+  '/order': typeof OrderRouteWithChildren
+  '/presale': typeof PresaleRoute
+  '/order/checkout': typeof OrderCheckoutRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/booking': typeof BookingRoute
+  '/events': typeof EventsRoute
+  '/order': typeof OrderRouteWithChildren
+  '/presale': typeof PresaleRoute
+  '/order/checkout': typeof OrderCheckoutRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/booking' | '/events' | '/order' | '/presale' | '/order/checkout'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/booking' | '/events' | '/order' | '/presale' | '/order/checkout'
+  id:
+    | '__root__'
+    | '/'
+    | '/booking'
+    | '/events'
+    | '/order'
+    | '/presale'
+    | '/order/checkout'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BookingRoute: typeof BookingRoute
+  EventsRoute: typeof EventsRoute
+  OrderRoute: typeof OrderRouteWithChildren
+  PresaleRoute: typeof PresaleRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +105,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/booking': {
+      id: '/booking'
+      path: '/booking'
+      fullPath: '/booking'
+      preLoaderRoute: typeof BookingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/order': {
+      id: '/order'
+      path: '/order'
+      fullPath: '/order'
+      preLoaderRoute: typeof OrderRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/presale': {
+      id: '/presale'
+      path: '/presale'
+      fullPath: '/presale'
+      preLoaderRoute: typeof PresaleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/order/checkout': {
+      id: '/order/checkout'
+      path: '/checkout'
+      fullPath: '/order/checkout'
+      preLoaderRoute: typeof OrderCheckoutRouteImport
+      parentRoute: typeof OrderRoute
+    }
   }
 }
 
+interface OrderRouteChildren {
+  OrderCheckoutRoute: typeof OrderCheckoutRoute
+}
+
+const OrderRouteChildren: OrderRouteChildren = {
+  OrderCheckoutRoute: OrderCheckoutRoute,
+}
+
+const OrderRouteWithChildren = OrderRoute._addFileChildren(OrderRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BookingRoute: BookingRoute,
+  EventsRoute: EventsRoute,
+  OrderRoute: OrderRouteWithChildren,
+  PresaleRoute: PresaleRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
