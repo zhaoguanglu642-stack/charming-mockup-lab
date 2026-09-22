@@ -72,8 +72,10 @@
   --color-primary-soft: var(--primary-soft);
   --color-member: var(--member);
   --color-nav: var(--nav);
+  --color-overlay: var(--overlay);
   --shadow-phone: var(--shadow-phone);
   --shadow-panel: var(--shadow-panel);
+  --shadow-sheet: var(--shadow-sheet);
 }
 
 :root {
@@ -121,8 +123,10 @@
   --primary-soft: oklch(0.79 0.105 76 / 0.1);
   --member: linear-gradient(135deg, oklch(0.18 0.012 55), oklch(0.12 0.012 32));
   --nav: oklch(0.1 0.008 50 / 0.94);
+  --overlay: oklch(0 0 0 / 0.72);
   --shadow-phone: 0 28px 80px oklch(0 0 0 / 0.48);
   --shadow-panel: 0 16px 40px oklch(0 0 0 / 0.28);
+  --shadow-sheet: 0 -18px 55px oklch(0 0 0 / 0.52);
   --hero-shade: linear-gradient(180deg, oklch(0.08 0.005 40 / 0.25), oklch(0.08 0.008 38 / 0.05) 35%, oklch(0.08 0.008 38 / 0.92));
 }
 
@@ -191,4 +195,27 @@
   font-size: 0.625rem;
   font-weight: 700;
   letter-spacing: 0.14em;
+}
+
+
+@keyframes sheet-up {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.sheet-enter {
+  animation: sheet-up 220ms ease-out both;
+}
+
+.qr-pattern {
+  background:
+    linear-gradient(90deg, var(--color-background) 12%, transparent 12% 24%, var(--color-background) 24% 38%, transparent 38% 52%, var(--color-background) 52% 67%, transparent 67% 78%, var(--color-background) 78%),
+    linear-gradient(var(--color-background) 10%, transparent 10% 22%, var(--color-background) 22% 36%, transparent 36% 50%, var(--color-background) 50% 66%, transparent 66% 80%, var(--color-background) 80%);
+  background-size: 31px 29px;
+  border: 10px solid var(--color-background);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet-enter { animation: none; }
+  * { scroll-behavior: auto !important; }
 }

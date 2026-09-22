@@ -6,7 +6,7 @@ type AppButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 export function AppButton({ children, className = "", ...props }: AppButtonProps) {
   return (
-    <button className={className} {...props}>
+    <button type="button" className={className} {...props}>
       {children}
     </button>
   );
