@@ -1,0 +1,1 @@
+import{o as e}from"./useStore-I5DtTLOq.js";import{t}from"./createLucideIcon-1lZ7GqMJ.js";var n=t(`x`,[[`path`,{d:`M18 6 6 18`,key:`1bl5f8`}],[`path`,{d:`m6 6 12 12`,key:`d8bk6v`}]]),r=e();function i({children:e,className:t=``,...n}){return(0,r.jsx)(`button`,{type:`button`,className:t,...n,children:e})}export{n,i as t};

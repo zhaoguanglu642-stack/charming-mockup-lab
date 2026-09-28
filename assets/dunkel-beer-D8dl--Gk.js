@@ -1,0 +1,1 @@
+var e=`/charming-mockup-lab/assets/amber-lager-nR5Mg-vC.jpg`,t=`/charming-mockup-lab/assets/dunkel-beer-GONGwAGh.jpg`;export{e as n,t};

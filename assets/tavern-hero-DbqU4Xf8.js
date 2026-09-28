@@ -1,0 +1,1 @@
+var e=`/charming-mockup-lab/assets/tavern-hero-DxnrtotM.jpg`;export{e as t};
